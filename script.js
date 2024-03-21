@@ -1,6 +1,6 @@
 const barbearia = {
     cortes: [
-        {},
+        
         { id: 1, tipo: "Militar", valor: 20 },
         { id: 2, tipo: "Samurai", valor: 35 },
         { id: 3, tipo: "Pompadour", valor: 20 },
@@ -9,7 +9,7 @@ const barbearia = {
     ],
   
     barbas: [
-        {},
+        
         { id: 1, tipo: "Capitão Jack", valor: 20 },
         { id: 2, tipo: "Van Dyke", valor: 20 },
         { id: 3, tipo: "Barba Média", valor: 20 },
@@ -22,92 +22,100 @@ const barbearia = {
   
 function buscaCortePorId(codigoCorte) {
     let corte = barbearia.cortes;
-    for(i = 0; i < corte.length; i ++ ){
+    for(let i = 0; i < corte.length; i ++ ){
 
         if(codigoCorte == corte[i].id){
 
-            return corte[codigoCorte];
+            return corte[i];
         } 
     }
     
     return "corte não encontrado";   
 }
+console.log(buscaCortePorId(3))
 
 function buscaBarbaPorId(codigoBarba) {
     let barba = barbearia.barbas;
-    for(j = 0; j < barba.length; j ++ ){
+    for(let j = 0; j < barba.length; j ++ ){
 
         if(codigoBarba == barba[j].id){
 
-            return barba[codigoBarba];
+            return barba[j];
         } 
     }
     
-    return "Barba não encontrado";
+    return "barba não encontrada";
 }
+console.log(buscaBarbaPorId(3))
 
 function verificaStatusBarbearia() {
     let status = barbearia.estaAberto
     if(status){
-        return "Estamos aberto"
-    }{
+        return "Estamos abertos"
+    }
+    else{
+
         return "Estamos fechados"
     }
 }
+console.log(verificaStatusBarbearia())
 
 
 function retornaTodosCortes() {
     let todosCortes =[]; 
-    for(k = 0; k < barbearia.cortes.length; k ++){
+    for(let k = 0; k < barbearia.cortes.length; k ++){
        
         todosCortes.push(barbearia.cortes[k])
     }
-    return todosCortes 
+    return todosCortes ;
 
 }
 console.log(retornaTodosCortes())
 
 function retornaTodasBarbas() {
     let todasBarbas =[]; 
-    for(l = 0; l < barbearia.barbas.length; l ++){
+    for(let p = 0; p < barbearia.barbas.length; p ++){
        
-        todasBarbas.push(barbearia.barbas[l])
+        todasBarbas.push(barbearia.barbas[p]);
     }
-    return todasBarbas 
+    return todasBarbas ;
 }
 console.log(retornaTodasBarbas())
 
+
+
 function criaPedido(nomeCliente, corteId, barbaId) {
-    let pedido = {
+    let pedidos = {
         nome : nomeCliente,
-        pedidoCorte : buscaCortePorId(corteId),
-        pedidoCortePreco : barbearia.cortes[i].valor,
-        pedidoBarba : buscaBarbaPorId(barbaId),
-        pedidoBarbaPreco : barbearia.barbas[j].valor
+        pedidoCorte : buscaCortePorId(corteId).tipo,
+        pedidoCortePreco : buscaCortePorId(corteId).valor,
+        pedidoBarba : buscaBarbaPorId(barbaId).tipo,
+        pedidoBarbaPreco : buscaBarbaPorId(barbaId).valor
     }
 
-    return pedido
+    return pedidos;
 }
+console.log(criaPedido("Pedro", 5, 1))
 
 
 function atualizarServico(lista, id, valor, tipo) {
-    let listaAtualizada = [];
-    for(l = 0; l < barbearia.cortes.length;l ++){
-        lista[id].valor = valor
-        lista[id].tipo = tipo
-
-        listaAtualizada.push(lista,lista[id],tipo, valor)
-        
-        return listaAtualizada
+    for(let l = 0; l < lista.length; l++) {
+        if (lista[l].id === id) {
+            lista[l].valor = valor;
+            lista[l].tipo = tipo;
+            return lista; 
+        }
     }
-
+    
+    return lista;
 }
-
-console.log(atualizarServico(barbearia.cortes, 2, 40, "Americano"))
+console.log(atualizarServico(barbearia.cortes, 5,50,"Ronaldinho"))
 
 function calculaTotal(pedido) {
 
-
+    let soma = pedido.pedidoCortePreco + pedido.pedidoBarbaPreco;
+    return soma
 }
-  
+console.log(calculaTotal(criaPedido("pedro",2,2)))
+
 
